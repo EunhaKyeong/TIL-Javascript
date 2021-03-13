@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지뢰찾기</title>
+    <style>
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid black;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    줄<input id="row" type="text" placeholder="10" value="10"/>
+    칸<input id="col" type="text" placeholder="10" value="10"/>
+    지뢰갯수<input id="mine" type="text" placeholder="20" value="20"/>
+    <button id="startBtn">게임 시작</button>
+    <div id="gameDiv">
+        <table>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script src="mine.js"></script>
+</body>
+</html>
