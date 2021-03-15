@@ -40,7 +40,8 @@ document.querySelector("#startBtn").addEventListener("click", function() {
             td.addEventListener("click", function(e) { 
                 var currentTd = e.currentTarget;
                 var clickedMine = col*currentTd.parentElement.rowIndex + currentTd.cellIndex    //클릭한 칸의 인덱스
-                if (isEnd===true || currentTd.classList[0]==='clickedTd' || ['!', '?'].includes(currentTd.textContent)) { //게임이 종료됐으면
+                //currentTd.classList[0]==='clickedTd'
+                if (isEnd===true || currentTd.classList.contains('clickedTd') || ['!', '?'].includes(currentTd.textContent)) { //게임이 종료됐으면
                     return false;
                 }
 
@@ -119,7 +120,8 @@ document.querySelector("#startBtn").addEventListener("click", function() {
             td.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 isStart = false;
-                if (isEnd===true || e.currentTarget.classList[0]==='clickedTd' || !['', '!', '?'].includes(e.currentTarget.textContent)) {
+                //e.currentTarget.classList[0]==='clickedTd'
+                if (isEnd===true || e.currentTarget.classList.contains('clickedTd') || !['', '!', '?'].includes(e.currentTarget.textContent)) {
                     e.preventDefault();
                 } else if (['', 'X'].includes(e.currentTarget.textContent)) {
                     e.currentTarget.textContent = '!';
