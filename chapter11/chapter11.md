@@ -161,3 +161,105 @@ div.addEventListener('click', function() {
     ![image](https://user-images.githubusercontent.com/66666533/111491513-46010380-877f-11eb-828a-f87a955150f2.png)
 
     - arr2는 arr1을 참조하고 있으므로 arr1===arr2의 값이 true이다.
+<hr>
+
+### 4. 팩토리패턴, 프로토타입
+```javascript
+var card1 = {
+    'name' : 'card1', 
+    'type' : 'card', 
+    'attack' : function() {
+        console.log('공격!');
+    },
+    'defense' : function() {
+        console.log('방어!');
+    }
+};
+var card2 = {
+    'name' : 'card1', 
+    'type' : 'card', 
+    'attack' : function() {
+        console.log('공격!');
+    },
+    'defense' : function() {
+        console.log('방어!');
+    }
+};
+var card3 = {
+    'name' : 'card3', 
+    'type' : 'card', 
+    'attack' : function() {
+        console.log('공격!');
+    },
+    'defense' : function() {
+        console.log('방어!');
+    }
+}
+```
+위의 코드를 보면 같은 key를 가진 세 개의 객체가 있다. 이 코드에서 두 가지 문제가 있다.  
+
+1. card를 만들 때마다 key, value값을 반복적으로 작성해야 한다.
+2. type, attack, defense 키는 value가 객체마다 변하지 않는 고유값이다.
+
+1번을 해결하기 위해 `팩토리 패턴`을 알아야 하고, 2번을 해결하기 위해 `프로토타입`을 알아야 한다.
+
+<`팩토리 패턴`>  
+팩토리(factory)는 '공장'이란 뜻을 가지고 있다. 우리는 객체를 생성하는 공장과 같은 역할을 하는 '함수'를 만들 수 있는데 이를 `팩토리 패턴 함수` 라고 한다.
+```javascript
+function setCard(name) {
+    return {
+        'name' : name, 
+        'type' : 'card', 
+        'attack' : function() {
+            console.log('공격!');
+        },
+        'defense' : function() {
+            console.log('방어!');
+        }
+    };
+}
+
+var card1 = setCard('card1');
+```
+![image](https://user-images.githubusercontent.com/66666533/111581334-67540500-87fc-11eb-871f-43b29a9d6f36.png)
+
+<`프로토타입`>  
+2번 문제를 해결하기 위해 `프로토타입`이란 것을 활용한다.
+위의 이미지를 보면 `__proto__`라는 것을 볼 수 있다. 이 안에 공통으로 사용되는 type, attack, defense 키를 저장하면 같은 코드가 중복되는 문제를 해결할 수 있다.
+```javascript
+var proto = {
+    'type' : 'card', 
+    'attack' : function() {
+        console.log('공격!');
+    },
+    'defense' : function() {
+        console.log('방어!');
+    }
+};
+
+function setCardUseProto(name) {
+    var card = {'name' : name};
+    card.__proto__ = proto;
+
+    return card;
+}
+
+var card2 = setCardUseProto('card2');
+```
+![image](https://user-images.githubusercontent.com/66666533/111582374-134a2000-87fe-11eb-80aa-d763c2046eb9.png)
+이 때 __proto__는 딕셔너리 객체이다. 따라서 card2는 `__proto__` 객체를 `참조`한다. 만약 card 객체가 몇십만, 몇백개가 존재할 때 type을 다른 값으로 바꾸고 싶다 하더라도 우리는 proto의 type만 변경하면 모든 객체의 type이 변경 가능하다.
+<br>
+
+하지만 실무에서 객체에 프로토타입을 설정할 때 `__proto__`를 사용하면 안된다. 대신에 같은 역할을 하는 `Object.create(prototype)`을 사용한다.
+```javascript
+function setCardUseProto(name) {
+    //card.__proto__ = proto;
+    var card = Object.create(proto);
+    card.name = name;
+
+    return card;
+}
+
+var card2 = setCardUseProto('card2');
+```
+![image](https://user-images.githubusercontent.com/66666533/111582374-134a2000-87fe-11eb-80aa-d763c2046eb9.png)

@@ -65,3 +65,41 @@ var arr1 = {'a':'A', 'b':'B', 'c':{'d':'D'}};
 var arr2 = {};
 arr1 = arr2;
 console.log(arr1===arr2);
+
+//팩토리 패턴
+function setCard(name) {
+    return {
+        'name' : name, 
+        'type' : 'card', 
+        'attack' : function() {
+            console.log('공격!');
+        },
+        'defense' : function() {
+            console.log('방어!');
+        }
+    };
+}
+
+var card1 = setCard('card1');
+
+//프로토타입
+var proto = {
+    'type' : 'card', 
+    'attack' : function() {
+        console.log('공격!');
+    },
+    'defense' : function() {
+        console.log('방어!');
+    }
+};
+
+function setCardUseProto(name) {
+    //card.__proto__ = proto;
+    var card = Object.create(proto);
+    card.name = name;
+
+    return card;
+}
+
+var card2 = setCardUseProto('card2');
+
