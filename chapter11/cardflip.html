@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드뒤집기 게임</title>
+    <style>
+        .card {
+            width: 100px;
+            height: 150px;
+            border: 1px solid black;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="card">
+        <div class="card-inner">
+            <div class="card-front">
+                앞
+            </div>
+            <div class="card-back">
+                뒤
+            </div>
+        </div>
+    </div>> -->
+    <script src="cardflip.js"></script>
+</body>
+</html>
